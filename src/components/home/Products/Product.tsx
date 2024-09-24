@@ -8,7 +8,6 @@ import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/chowdhuy/chowdhurySlice";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const Product = (props: any) => {

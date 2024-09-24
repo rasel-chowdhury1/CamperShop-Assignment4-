@@ -3,10 +3,6 @@ import { ChowdhuryState, TProduct, Brand, Category } from "../../../types/global
 import Swal from "sweetalert2";
 
 
-// API Endpoints
-const CREATE_PRODUCT_URL = "http://localhost:5000/products/create-product";
-const GET_ALL_PRODUCTS_URL = "http://localhost:5000/products/all";
-
 
 const initialState: ChowdhuryState = {
   userInfo: [],

@@ -41,7 +41,7 @@ const UpdateProduct= ({ previewsData,onClose }: UpdateProductProps) => {
     }
   }, [previewsData, reset]);
 
-  const onSubmit: SubmitHandler<TProductFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<TProductFormInput> = async () => {
 
       Swal.fire({
         position: "top-end",

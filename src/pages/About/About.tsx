@@ -1,7 +1,5 @@
-import  { useEffect, useState } from "react";
-import {  Link, useLocation } from "react-router-dom";
-import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
-import { ava1, ava2, ava3, bannerImgOne } from "../../assets/images";
+
+import { ava1, ava2, ava3 } from "../../assets/images";
 
 
 
