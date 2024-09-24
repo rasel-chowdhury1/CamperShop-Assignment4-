@@ -1,16 +1,4 @@
 import {
-  spfOne,
-  spfTwo,
-  spfThree,
-  spfFour,
-  bestSellerOne,
-  bestSellerTwo,
-  bestSellerThree,
-  bestSellerFour,
-  newArrOne,
-  newArrTwo,
-  newArrThree,
-  newArrFour,
   imprimante1,
   imprimante2,
   imprimante4,
@@ -64,7 +52,7 @@ export const navBarList = [
   },
   {
     _id: 1002,
-    title: "Shop",
+    title: "Products",
     link: "/shop",
   },
   {
@@ -73,14 +61,9 @@ export const navBarList = [
     link: "/about",
   },
   {
-    _id: 1004,
-    title: "Contact",
-    link: "contact",
-  },
-  {
     _id: 1005,
-    title: "Journal",
-    link: "/journal",
+    title: "Product Management",
+    link: "/product-management",
   },
 ];
 // =================== NavBarList End here ======================

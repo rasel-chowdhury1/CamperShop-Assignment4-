@@ -1,6 +1,6 @@
-import React from "react";
+import { FlexProps } from "../../types/global.type";
 
-const List = ({ children, className }) => {
+const List = ({ children, className }: FlexProps) => {
   return <ul className={className}>{children}</ul>;
 };
 

@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import bannerImgOne from "../../assets/images/banner/bannerImgOne.webp";
 import bannerImgTwo from "../../assets/images/banner/bannerImgTwo.webp";
 import bannerImgThree from "../../assets/images/banner/bannerImgTwo.webp";
 import Image from "../designLayouts/Image";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const CustomSlide = ({ Subtext, imgSrc, text, buttonLink, buttonText }) => (
+type CustomSlideProps = {
+  Subtext: string;
+  imgSrc: string;
+  text: string;
+  buttonLink: string;
+  buttonText: string;
+};
+
+const CustomSlide = ({ Subtext, imgSrc, text, buttonLink, buttonText }: CustomSlideProps) => (
     
   <div
     style={{
@@ -49,6 +59,7 @@ const CustomSlide = ({ Subtext, imgSrc, text, buttonLink, buttonText }) => (
         </button>
       </Link>
     </div>
+
     <div style={{ marginLeft: "100px" }}>
       <Image imgSrc={imgSrc} />
     </div>
@@ -65,10 +76,10 @@ const Banner = () => {
     slidesToScroll: 1,
     adaptiveHeight: true,
     arrows: false,
-    beforeChange: (prev, next) => {
+    beforeChange: ( next:number) => {
       setDocActive(next);
     },
-    appendDots: (dots) => (
+    appendDots: (dots: React.ReactNode) => (
       <div
         style={{
           position: "absolute",
@@ -80,7 +91,7 @@ const Banner = () => {
         <ul style={{ margin: "0px" }}> {dots} </ul>
       </div>
     ),
-    customPaging: (i) => (
+    customPaging: (i: number) => (
       <div
         style={
           i === dotActive
@@ -108,7 +119,7 @@ const Banner = () => {
         breakpoint: 576,
         settings: {
           dots: true,
-          appendDots: (dots) => (
+          appendDots: (dots: React.ReactNode) => (
             <div
               style={{
                 position: "absolute",
@@ -120,7 +131,7 @@ const Banner = () => {
               <ul style={{ margin: "0px" }}> {dots} </ul>
             </div>
           ),
-          customPaging: (i) => (
+          customPaging: (i:number) => (
             <div
               style={
                 i === dotActive

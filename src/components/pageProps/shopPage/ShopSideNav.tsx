@@ -1,4 +1,4 @@
-import React from "react";
+
 import Brand from "./shopBy/Brand";
 import Category from "./shopBy/Category";
 import Color from "./shopBy/Color";

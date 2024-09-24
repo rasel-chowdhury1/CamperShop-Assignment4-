@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { motion } from "framer-motion";
 import { FaFacebook, FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa";
 import FooterListTitle from "./FooterListTitle.tsx";
@@ -10,7 +10,7 @@ const Footer = () => {
   const [subscription, setSubscription] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
-  const emailValidation = () => {
+  const emailValidation = (emailInfo: string) => {
     return String(emailInfo)
       .toLocaleLowerCase()
       .match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/);

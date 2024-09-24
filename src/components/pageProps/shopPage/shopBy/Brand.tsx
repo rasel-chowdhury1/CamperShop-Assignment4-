@@ -3,46 +3,35 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBrand } from "../../../../redux/features/chowdhuy/chowdhurySlice";
 import NavTitle from "./NavTitle";
+import { RootState } from "../../../../redux/store";
+
+interface Brand {
+  _id: string; // Ensure IDs are strings
+  title: string;
+}
 
 const Brand = () => {
   const [showBrands, setShowBrands] = useState(true);
   const checkedBrands = useSelector(
-    (state) => state.chowdhuryReducer.checkedBrands
+    (state: RootState) => state.chowdhuryReducer.checkedBrands
   );
 
-  console.log({checkedBrands})
   const dispatch = useDispatch();
 
-  const brands = [
-    {
-      _id: 900,
-      title: "Pantum",
-    },
-    {
-      _id: 901,
-      title: "Hp",
-    },
-    {
-      _id: 902,
-      title: "Epson",
-    },
-
-    {
-      _id: 903,
-      title: "Ricoh",
-    },
+  const brands: Brand[] = [
+    { _id: "900", title: "Pantum" }, // Ensure IDs are strings
+    { _id: "901", title: "Hp" },
+    { _id: "902", title: "Epson" },
+    { _id: "903", title: "Ricoh" },
   ];
 
-  const handleToggleBrand = (brand) => {
+  const handleToggleBrand = (brand: Brand) => {
     dispatch(toggleBrand(brand));
   };
 
   return (
     <div>
-      <div
-        onClick={() => setShowBrands(!showBrands)}
-        className="cursor-pointer"
-      >
+      <div onClick={() => setShowBrands(!showBrands)} className="cursor-pointer">
         <NavTitle title="Shop by Brand" icons={true} />
       </div>
       {showBrands && (
@@ -59,8 +48,8 @@ const Brand = () => {
               >
                 <input
                   type="checkbox"
-                  id={item._id}
-                  checked={checkedBrands.some((b) => b._id === item._id)}
+                  id={item._id} // Use string as ID
+                  checked={checkedBrands.some((b) => String(b._id) === item._id)} // Compare both as strings
                   onChange={() => handleToggleBrand(item)}
                 />
                 {item.title}

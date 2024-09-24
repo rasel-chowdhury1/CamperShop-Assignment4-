@@ -1,4 +1,4 @@
-import logo from "./orebiLogo.png";
+import logo from "./logoshop.jpg";
 import logoLight from "./logoLight.png";
 import bannerImgOne from "./banner/bannerImgOne.webp";
 import bannerImgTwo from "./banner/bannerImgTwo.webp";
@@ -74,7 +74,9 @@ import ricoh5 from "../images/products/imprimante/ricoh5.webp";
 
 import espson1 from "../images/products/imprimante/espson1.webp";
 import espson2 from "../images/products/imprimante/espson2.webp";
-
+import ava1 from "../images/ava-1.jpg";
+import ava2 from "../images/ava-2.jpg";
+import ava3 from "../images/ava-3.jpg";
 export {
   logo,
   logoLight,
@@ -154,4 +156,8 @@ export {
   ricoh5,
   espson1,
   espson2,
+
+  ava1,
+  ava2,
+  ava3
 };

@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
+
 import { emptyCart } from "../../assets/images/index";
+import { RootState } from "../../redux/store";
 import ItemCard from "./ItemCard";
 import { resetCart } from "../../redux/features/chowdhuy/chowdhurySlice";
+import { TProduct } from "../../types/global.type";
+
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.chowdhuryReducer.products);
-  const [totalAmt, setTotalAmt] = useState("");
-  const [shippingCharge, setShippingCharge] = useState("");
+  const products = useSelector((state: RootState) => state.chowdhuryReducer.products);
+  const [totalAmt, setTotalAmt] = useState<number>(0);
+  const [shippingCharge, setShippingCharge] = useState<number>(0);
   useEffect(() => {
     let price = 0;
-    products.map((item) => {
-      price += item.price * item.quantity;
-      return price;
+    products.forEach((item: TProduct) => {
+      price += item.price * (item.quantity || 0); // Use quantity safely
     });
     setTotalAmt(price);
   }, [products]);
+  
   useEffect(() => {
     if (totalAmt <= 200) {
       setShippingCharge(30);

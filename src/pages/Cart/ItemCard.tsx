@@ -3,8 +3,18 @@ import { ImCross } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { deleteItem, drecreaseQuantity, increaseQuantity } from "../../redux/features/chowdhuy/chowdhurySlice";
 
+type Item = {
+  _id: string;
+  image: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
 
-const ItemCard = ({ item }) => {
+interface ItemCardProps {
+  item: Item;
+}
+const ItemCard = ({ item }: ItemCardProps) => {
   const dispatch = useDispatch();
   return (
     <div className="w-full grid grid-cols-5 mb-4 border py-2">

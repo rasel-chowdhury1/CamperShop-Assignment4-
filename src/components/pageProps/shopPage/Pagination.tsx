@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Product from "../../home/Products/Product";
 import { useSelector } from "react-redux";
 import { paginationItems } from "../../../constants";
+import { RootState } from "../../../redux/store";
 
-const items = paginationItems;
-console.log({items})
+type Item = {
+  _id: string;
+  img: string;
+  productName: string;
+  price: string;
+  color: string;
+  badge: boolean;
+  des: string;
+  pdf?: string;  // Optional field
+  ficheTech?: { label: string; value: string; }[]; // Optional field
+  brand?: string;  // Optional field to allow for undefined values
+  cat?: string;    // Optional field to match possible missing data
+};
 
-function Items({ currentItems, selectedBrands, selectedCategories }) {
+
+const items: Item[] = paginationItems; // Specify type for items
+console.log({ items });
+
+type ItemsProps = {
+  currentItems: Item[];
+  selectedBrands: { title: string }[];
+  selectedCategories: { title: string }[];
+};
+
+function Items({ currentItems, selectedBrands, selectedCategories }: ItemsProps) {
   console.log({currentItems, selectedBrands, selectedCategories})
   // Filter items based on selected brands and categories
   const filteredItems = currentItems.filter((item) => {
@@ -46,8 +68,11 @@ function Items({ currentItems, selectedBrands, selectedCategories }) {
   );
 }
 
+type PaginationProps = {
+  itemsPerPage: number;
+};
 
-const Pagination = ({ itemsPerPage }) => {
+const Pagination = ({ itemsPerPage } : PaginationProps) => {
   const [itemOffset, setItemOffset] = useState(0);
   const [itemStart, setItemStart] = useState(1);
 
@@ -56,14 +81,14 @@ const Pagination = ({ itemsPerPage }) => {
   const currentItems = items.slice(itemOffset, endOffset);
   console.log({currentItems})
   const selectedBrands = useSelector(
-    (state) => state.chowdhuryReducer.checkedBrands
+    (state: RootState) => state.chowdhuryReducer.checkedBrands
   );
   const selectedCategories = useSelector(
-    (state) => state.chowdhuryReducer.checkedCategorys
+    (state : RootState) => state.chowdhuryReducer.checkedCategorys
   );
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
-  const handlePageClick = (event) => {
+  const handlePageClick = (event: { selected: number }) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     const newStart = newOffset + 1; // Adjust the start index
 

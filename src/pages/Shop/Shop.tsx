@@ -3,10 +3,11 @@ import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import ShopSideNav from "../../components/pageProps/shopPage/ShopSideNav";
 import ProductBanner from "../../components/pageProps/shopPage/ProductBanner";
 import Pagination from "../../components/pageProps/shopPage/Pagination";
+import ImageGallery from "../../components/ImageGallery/ImageGallery";
 
 const Shop = () => {
   const [itemsPerPage, setItemsPerPage] = useState(12);
-  const itemsPerPageFromBanner = (itemsPerPage) => {
+  const itemsPerPageFromBanner = (itemsPerPage: number) => {
     setItemsPerPage(itemsPerPage);
   };
  
@@ -24,8 +25,12 @@ const Shop = () => {
           <ProductBanner itemsPerPageFromBanner={itemsPerPageFromBanner} />
           
           <Pagination itemsPerPage={itemsPerPage} />
+
+          
         </div>
       </div>
+
+      <ImageGallery/>
       {/* ================= Products End here ===================== */}
     </div>
   );

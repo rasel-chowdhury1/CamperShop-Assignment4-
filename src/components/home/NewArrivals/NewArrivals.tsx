@@ -1,4 +1,4 @@
-import React from "react";
+
 import Slider from "react-slick";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";

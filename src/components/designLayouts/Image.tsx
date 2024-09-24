@@ -1,6 +1,7 @@
-import React from "react";
+import { ImgProps } from "../../types/global.type";
 
-const Image = ({ imgSrc, className }) => {
+const Image = ({ imgSrc, className }: ImgProps) => {
+  console.log({imgSrc, className})
   return <img className={className} src={imgSrc} alt={imgSrc} />;
 };
 

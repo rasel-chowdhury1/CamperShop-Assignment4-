@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsGridFill } from "react-icons/bs";
 import { ImList } from "react-icons/im";
 import { GoTriangleDown } from "react-icons/go";
+interface ProductBannerProps {
+  itemsPerPageFromBanner: (itemsPerPage: number) => void; // Define the type for the prop
+}
 
-const ProductBanner = ({ itemsPerPageFromBanner }) => {
+const ProductBanner = ({ itemsPerPageFromBanner }: ProductBannerProps) => {
     // const [selected, setSelected] = useState("");
   const [girdViewActive, setGridViewActive] = useState(true);
   const [listViewActive, setListViewActive] = useState(false);
@@ -11,11 +14,11 @@ const ProductBanner = ({ itemsPerPageFromBanner }) => {
     const gridView = document.querySelector(".gridView");
     const listView = document.querySelector(".listView");
 
-    gridView.addEventListener("click", () => {
+    gridView?.addEventListener("click", () => {
       setListViewActive(false);
       setGridViewActive(true);
     });
-    listView.addEventListener("click", () => {
+    listView?.addEventListener("click", () => {
       setGridViewActive(false);
       setListViewActive(true);
     });

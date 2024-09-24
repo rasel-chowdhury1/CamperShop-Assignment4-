@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import  { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { FaSearch, FaUser, FaCaretDown, FaShoppingCart } from "react-icons/fa";
@@ -7,38 +7,53 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { paginationItems } from "../../../constants";
 import { BsSuitHeartFill } from "react-icons/bs";
+import { RootState } from "../../../redux/store";
+import { TProduct } from "../../../types/product.type";
 
 const HeaderBottom = () => {
-  const products = useSelector((state) => state.chowdhuryReducer.products);
+  const products = useSelector((state: RootState) => state.chowdhuryReducer.products);
   const [show, setShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const navigate = useNavigate();
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.addEventListener("click", (e) => {
-      if (ref.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      // Check if ref.current is not null before accessing its properties
+      if (ref.current && ref.current.contains(e.target as Node)) {
         setShow(true);
       } else {
         setShow(false);
       }
-    });
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
   }, [show, ref]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState<TProduct[]>([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
-
-  const handleSearch = (e) => {
+  console.log(showSearchBar)
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   useEffect(() => {
-    const filtered = paginationItems.filter((item) =>
+    const filtered = paginationItems.map((item) => ({
+      ...item,
+      price: Number(item.price), // Convert price to number
+    })).filter((item) =>
       item.productName.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
     setFilteredProducts(filtered);
   }, [searchQuery]);
+
+
 
   return (
     <div className="w-full bg-[#F5F5F3] relative">
@@ -99,24 +114,21 @@ const HeaderBottom = () => {
                 {searchQuery &&
                   filteredProducts.map((item) => (
                     <div
-                      onClick={() =>
-                        navigate(
-                          `/product/${item.productName
-                            .toLowerCase()
-                            .split(" ")
-                            .join("")}`,
-                          {
-                            state: {
-                              item: item,
-                            },
-                          }
-                        ) &
-                        setShowSearchBar(true) &
-                        setSearchQuery("")
-                      }
-                      key={item._id}
-                      className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
-                    >
+                    onClick={() => {
+                      navigate(
+                        `/product/${item.productName.toLowerCase().split(" ").join("")}`,
+                        {
+                          state: {
+                            item: item,
+                          },
+                        }
+                      );
+                      setShowSearchBar(true);
+                      setSearchQuery("");
+                    }}
+                    key={item._id}
+                    className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
+                  >
                       <img className="w-24" src={item.img} alt="productImg" />
                       <div className="flex flex-col gap-1">
                         <p className="font-semibold text-lg">

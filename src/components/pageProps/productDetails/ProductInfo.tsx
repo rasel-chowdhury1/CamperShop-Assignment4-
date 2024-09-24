@@ -2,7 +2,28 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/chowdhuy/chowdhurySlice";
 
-const ProductInfo = ({ productInfo }) => {
+type TFicheTechnique = {
+  label: string;
+  value: string;
+};
+
+type ProductInfoType = {
+  id: string;
+  productName: string;
+  price: number;
+  img: string;
+  badge: string;
+  color: string;
+  des?: string; // optional if it can be undefined
+  ficheTech: TFicheTechnique[];
+  pdf?: string; // Optional
+};
+
+interface ProductInfoProps {
+  productInfo: ProductInfoType; // Use the defined type here
+}
+
+const ProductInfo = ({ productInfo }: ProductInfoProps) => {
   const highlightStyle = {
     color: "#d0121a", // Change this to the desired color
     fontWeight: "bold", // Change this to the desired font weight

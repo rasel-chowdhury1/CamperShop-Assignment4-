@@ -1,86 +1,89 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
+import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { ChowdhuryState, TProduct, Brand, Category } from "../../../types/global.type"; // Adjust import paths as necessary
+import Swal from "sweetalert2";
 
-const initialState = {
+
+// API Endpoints
+const CREATE_PRODUCT_URL = "http://localhost:5000/products/create-product";
+const GET_ALL_PRODUCTS_URL = "http://localhost:5000/products/all";
+
+
+const initialState: ChowdhuryState = {
   userInfo: [],
   products: [],
   checkedBrands: [],
   checkedCategorys: [],
+  loading: false,
+  error: null,
 };
 
 export const chowdhurySlice = createSlice({
   name: "orebi",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
+    addToCart: (state, action: PayloadAction<TProduct>) => {
+      const item = state.products.find((item) => item._id === action.payload._id);
       if (item) {
+
         item.quantity += action.payload.quantity;
       } else {
         state.products.push(action.payload);
       }
       // Dispatch a success toast
-      toast.success("Product added to cart");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Product added to Cart",
+        showConfirmButton: false,
+        timer: 1500
+      });
     },
-    increaseQuantity: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+    increaseQuantity: (state, action: PayloadAction<{ _id: string }>) => {
+      const item = state.products.find((item) => item._id === action.payload._id);
       if (item) {
         item.quantity++;
         // Dispatch a success toast
       }
     },
-    drecreaseQuantity: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
-      if (item.quantity === 1) {
-        item.quantity = 1;
-      } else {
-        item.quantity--;
+    drecreaseQuantity: (state, action: PayloadAction<{ _id: string }>) => {
+      const item = state.products.find((item) => item._id === action.payload._id);
+      if (item) {
+        if (item.quantity > 1) {
+          item.quantity--;
+        }
         // Dispatch a success toast
       }
     },
-    deleteItem: (state, action) => {
-      state.products = state.products.filter(
-        (item) => item._id !== action.payload
-      );
+    deleteItem: (state, action: PayloadAction<string>) => {
+      state.products = state.products.filter((item) => item._id !== action.payload);
       // Dispatch a success toast
-      toast.error("Product removed from cart");
     },
     resetCart: (state) => {
       state.products = [];
       // Dispatch a success toast
     },
-
-    toggleBrand: (state, action) => {
+    toggleBrand: (state, action: PayloadAction<Brand>) => {
       const brand = action.payload;
-      const isBrandChecked = state.checkedBrands.some(
-        (b) => b._id === brand._id
-      );
+      const isBrandChecked = state.checkedBrands.some((b) => b._id === brand._id);
 
       if (isBrandChecked) {
-        state.checkedBrands = state.checkedBrands.filter(
-          (b) => b._id !== brand._id
-        );
+        state.checkedBrands = state.checkedBrands.filter((b) => b._id !== brand._id);
       } else {
         state.checkedBrands.push(brand);
       }
     },
-
-    toggleCategory: (state, action) => {
+    toggleCategory: (state, action: PayloadAction<Category>) => {
       const category = action.payload;
-      const isCategoryChecked = state.checkedCategorys.some(
-        (b) => b._id === category._id
-      );
+      const isCategoryChecked = state.checkedCategorys.some((b) => b._id === category._id);
 
       if (isCategoryChecked) {
-        state.checkedCategorys = state.checkedCategorys.filter(
-          (b) => b._id !== category._id
-        );
+        state.checkedCategorys = state.checkedCategorys.filter((b) => b._id !== category._id);
       } else {
         state.checkedCategorys.push(category);
       }
@@ -89,6 +92,8 @@ export const chowdhurySlice = createSlice({
 });
 
 export const {
+  setLoading,
+  setError,
   addToCart,
   increaseQuantity,
   drecreaseQuantity,
@@ -97,4 +102,5 @@ export const {
   toggleBrand,
   toggleCategory,
 } = chowdhurySlice.actions;
+
 export default chowdhurySlice.reducer;

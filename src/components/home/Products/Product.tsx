@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useEffect, useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { GiReturnArrow } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -9,15 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/chowdhuy/chowdhurySlice";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
-const Product = (props) => {
+const Product = (props: any) => {
   const dispatch = useDispatch();
   const _id = props.productName;
-  const idString = (_id) => {
+  const idString = (_id: string) => {
     return String(_id).toLowerCase().split(" ").join("");
   };
   const rootId = idString(_id);
-  const [wishList, setWishList] = useState([]);
+  const [wishList, setWishList] = useState<any[]>([]);
   const navigate = useNavigate();
   const productItem = props;
   const handleProductDetails = () => {
@@ -29,10 +30,20 @@ const Product = (props) => {
   };
 
   const handleWishList = () => {
-    toast.success("Product add to wish List");
-    setWishList(wishList.push(props));
-    console.log(wishList);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Product added to wish list",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    setWishList((prevWishList) => [...prevWishList, props]); // Correct way to update the state
   };
+
+  useEffect(() => {
+    console.log("Updated wish list:", wishList);
+  }, [wishList]);
+
   return (
     <div className="w-full relative group">
       <div className="max-w-80 max-h-80 relative overflow-y-hidden ">

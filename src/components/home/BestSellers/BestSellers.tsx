@@ -1,4 +1,4 @@
-import React from "react";
+
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
 import {

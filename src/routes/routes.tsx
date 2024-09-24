@@ -3,12 +3,14 @@ import App from "../App";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Shop";
 import About from "../pages/About/About";
-import Contact from "../pages/Contact/Contact";
 import Journal from "../pages/Journal/Journal";
 import Offer from "../pages/Offer/Offer";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
-import Cart from "../pages/Cart/Cart";
+
 import Payment from "../pages/payment/Payment";
+import ProductManagement from "../pages/ProductManagement/ProductManagement";
+import Cart from "../pages/Cart/Cart";
+import CreateProduct from "../pages/CreateProduct/CreateProduct";
 
 const router = createBrowserRouter([
     {
@@ -24,13 +26,14 @@ const router = createBrowserRouter([
           element: <Shop/>
         },
         {
+          path: "/cart",
+          element: <Cart/>
+        },
+        {
           path: "/about",
           element: <About/>
         },
-        {
-          path: "/contact",
-          element: <Contact/>
-        },
+        
         {
           path: "/journal",
           element: <Journal/>
@@ -44,13 +47,17 @@ const router = createBrowserRouter([
           element: <ProductDetails/>
         },
         {
-          path: "/cart",
-          element: <Cart/>
-        },
-        {
           path: "/paymentgateway",
           element: <Payment/>
-        }
+        },
+        {
+          path: "/product-management",
+          element: <ProductManagement/>
+        },
+        {
+          path: "/create-product",
+          element: <CreateProduct/>
+        },
       ]
     },
   ]);

@@ -1,15 +1,25 @@
-import React, { useState } from "react";
-// import { FaPlus } from "react-icons/fa";
+import  { useState } from "react";
 import { ImPlus } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import NavTitle from "./NavTitle";
 import { toggleCategory } from "../../../../redux/features/chowdhuy/chowdhurySlice";
+import { RootState } from "../../../../redux/store";
 
-const Category = () => {
+
+interface CategoryItem {
+  _id: number;
+  title: string;
+}
+
+interface CategoryProps {
+  icons: boolean; // Define the icons prop
+}
+
+const Category = ({icons} : CategoryProps) => {
   const [showSubCatOne, setShowSubCatOne] = useState(false);
 
   const checkedCategorys = useSelector(
-    (state) => state.chowdhuryReducer.checkedCategorys
+    (state: RootState) => state.chowdhuryReducer.checkedCategorys
   );
   const dispatch = useDispatch();
 
@@ -28,11 +38,11 @@ const Category = () => {
     },
     {
       _id: 9009,
-      title: "Bac de dechet",
+      title: "Bac de dechet"
     },
   ];
 
-  const handleToggleCategory = (category) => {
+  const handleToggleCategory = (category: CategoryItem) => {
     dispatch(toggleCategory(category));
   };
 
@@ -48,12 +58,12 @@ const Category = () => {
             >
               <input
                 type="checkbox"
-                id={item._id}
+                id={String(item._id)}
                 checked={checkedCategorys.some((b) => b._id === item._id)}
                 onChange={() => handleToggleCategory(item)}
               />
               {item.title}
-              {item.icons && (
+              {icons && (
                 <span
                   onClick={() => setShowSubCatOne(!showSubCatOne)}
                   className="text-[10px] lg:text-xs cursor-pointer text-gray-400 hover:text-primeColor duration-300"

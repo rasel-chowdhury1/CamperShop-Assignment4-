@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
-import { SplOfferData } from "../../../constants";
 import { useParams } from "react-router-dom";
-
+import { SplOfferData } from "../../../constants";
+type ProductType = {
+  _id: string;
+  img: string;
+  productName: string;
+  price: string;
+  color: string;
+  badge: boolean;
+  des: string;
+  cat: string;
+};
 const SpecialOffers = () => {
   const { category } = useParams();
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ProductType[]>([]);
   useEffect(() => {
     setData(SplOfferData);
   }, [data]);
