@@ -56,6 +56,8 @@ const UpdateProduct= ({ previewsData,onClose }: UpdateProductProps) => {
       navigate("/")
   };
 
+  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
       <div>
